@@ -75,9 +75,9 @@ function writeHikes() {
 //writeHikes();
 
 function populateCardsDynamically() {
-    let hikeCardTemplate = document.getElementById("hikeCardTemplate");
-    let hikeCardGroup = document.getElementById("hikeCardGroup");
-    
+    let hikeCardTemplate = document.getElementById("hikeCardTemplate");  //card template
+    let hikeCardGroup = document.getElementById("hikeCardGroup");   //where to append card
+
     db.collection("Hikes").get()
         .then(allHikes => {
             allHikes.forEach(doc => {
@@ -88,10 +88,17 @@ function populateCardsDynamically() {
                 testHikeCard.querySelector('.card-title').innerHTML = hikeName;
                 testHikeCard.querySelector('.card-length').innerHTML = hikeLength;
                 testHikeCard.querySelector('a').onclick = () => setHikeData(hikeID);
+
+                //next 2 lines are new for demo#11
+                //this line sets the id attribute for the <i> tag in the format of "save-hikdID" 
+                //so later we know which hike to bookmark based on which hike was clicked
+                testHikeCard.querySelector('i').id = 'save-' + hikeID;
+                // this line will call a function to save the hikes to the user's document             
+                testHikeCard.querySelector('i').onclick = () => saveBookmark(hikeID);
+
                 testHikeCard.querySelector('img').src = `./images/${hikeID}.jpg`;
                 hikeCardGroup.appendChild(testHikeCard);
             })
-
         })
 }
 populateCardsDynamically();

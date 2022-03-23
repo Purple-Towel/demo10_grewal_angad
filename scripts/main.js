@@ -1,8 +1,25 @@
+var currentUser;
+firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+        currentUser = db.collection("users").doc(user.uid);   //global
+        console.log(currentUser);
+
+        // the following functions are always called when someone is logged in
+        read_display_Quote();
+        insertName();
+        populateCardsDynamically();
+    } else {
+        // No user is signed in.
+        console.log("No user is signed in");
+        window.location.href = "login.html";
+    }
+});
+
 function read_display_Quote(){
     //console.log("inside the function")
 
     //get into the right collection
-    db.collection("quotes").doc("tuesday")
+    db.collection("quotes").doc("Tuesday")
     .onSnapshot(function(tuesdayDoc) {
         //console.log(tuesdayDoc.data());
         document.getElementById("quote-goes-here").innerHTML=tuesdayDoc.data().quote;

@@ -103,6 +103,20 @@ function populateCardsDynamically() {
 }
 populateCardsDynamically();
 
+function saveBookmark(hikeID) {
+    currentUser.set({
+            bookmarks: firebase.firestore.FieldValue.arrayUnion(hikeID)
+        }, {
+            merge: true
+        })
+        .then(function () {
+            console.log("bookmark has been saved for: " + currentUser);
+            var iconID = 'save-' + hikeID;
+            //console.log(iconID);
+            document.getElementById(iconID).innerText = 'bookmark';
+        });
+}
+
 function setHikeData(id){
     localStorage.setItem ('hikeID', id);
 }

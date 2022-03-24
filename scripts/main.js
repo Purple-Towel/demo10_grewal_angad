@@ -88,6 +88,7 @@ function populateCardsDynamically() {
                 testHikeCard.querySelector('.card-title').innerHTML = hikeName;
                 testHikeCard.querySelector('.card-length').innerHTML = hikeLength;
                 testHikeCard.querySelector('a').onclick = () => setHikeData(hikeID);
+                testHikeCard.querySelector('.read-more').href = "eachHike.html?hikeName="+hikeName +"&id=" + hikeID;
 
                 //next 2 lines are new for demo#11
                 //this line sets the id attribute for the <i> tag in the format of "save-hikdID" 
